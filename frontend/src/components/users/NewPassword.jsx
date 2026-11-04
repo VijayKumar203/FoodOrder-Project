@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
-import { useAlert } from "react-alert";
+// import { useAlert } from "react-alert";
+import { toast } from "react-toastify";
 import { useDispatch, useSelector } from "react-redux";
 import {useNavigate, useParams} from "react-router-dom";
 import { clearErrors, resetPassword } from "../../actions/userAction";
@@ -8,7 +9,7 @@ const NewPassword = () => {
   const [password, setPassword] = useState("");
   const [passwordConfirm, setPasswordConfirm] = useState("");
 
-  const alert = useAlert();
+  // const alert = useAlert();
   const dispatch = useDispatch();
 
   const {error, success} = useSelector((state) => state.forgotPassword);
@@ -17,14 +18,14 @@ const NewPassword = () => {
 
   useEffect(() => {
     if(error) {
-      alert.error(error);
+      toast.error(error);
       dispatch(clearErrors());
     }
     if(success) {
-      alert.success("Password updated successfully");
+      toast.success("Password updated successfully");
       navigate("/users/login");
     }
-  }, [dispatch, alert, error, success, navigate]);
+  }, [dispatch, error, success, navigate]);
 
   const submitHandler = (e) => {
     e.preventDefault();

@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react'
-import { useAlert } from 'react-alert';
+// import { useAlert } from 'react-alert';
+import { toast } from "react-toastify";
 import { FaIndianRupeeSign } from "react-icons/fa6";
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
@@ -13,7 +14,7 @@ export default function FoodItem({fooditem, restaurant}) {
 
     const navigate = useNavigate();
     const dispatch = useDispatch();
-    const alert = useAlert();
+    // const alert = useAlert();
 
     const cartItems = useSelector((state) => state.cart.cartItems);
 
@@ -34,9 +35,9 @@ export default function FoodItem({fooditem, restaurant}) {
         if(quantity < fooditem.stock) {
             const newQuantity  = quantity + 1;
             setQuantity(newQuantity);
-            dispatch(updateCartQuantity(fooditem._id, newQuantity, alert));
+            dispatch(updateCartQuantity(fooditem._id, newQuantity));
         } else {
-            alert.error("Exceed stock limit");
+            toast.error("Exceed stock limit");
         }
     };
 
@@ -44,7 +45,7 @@ export default function FoodItem({fooditem, restaurant}) {
         if(quantity > 1) {
             const newQuantity = quantity - 1;
             setQuantity(newQuantity);
-            dispatch(updateCartQuantity(fooditem._id, newQuantity, alert));
+            dispatch(updateCartQuantity(fooditem._id, newQuantity ));
         } else {
             setQuantity(0);
             setShowButtons(false);
@@ -57,7 +58,7 @@ export default function FoodItem({fooditem, restaurant}) {
             return navigate("/users/login");
         }
         if(fooditem && fooditem._id) {
-            dispatch(addItemToCart(fooditem._id, restaurant, quantity, alert));
+            dispatch(addItemToCart(fooditem._id, restaurant, quantity ));
             setShowButtons(true);
         } else {
             console.error("Food item id is not defined");

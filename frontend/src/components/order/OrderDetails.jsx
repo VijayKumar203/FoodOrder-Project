@@ -1,13 +1,14 @@
 import React, { Fragment, useEffect } from "react";
 import Loader from "../layouts/Loader";
 import { LiaRupeeSignSolid } from "react-icons/lia";
-import { useAlert } from "react-alert";
+// import { useAlert } from "react-alert";
+import { toast } from "react-toastify";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useParams } from "react-router-dom";
 import { clearErrors, getOrderDetails } from "../../actions/orderAction";
 
 const OrderDetails = () => {
-  const alert = useAlert();
+  // const alert = useAlert();
   const dispatch = useDispatch();
   const { id } = useParams();
   const {
@@ -21,10 +22,10 @@ const OrderDetails = () => {
   useEffect(() => {
     dispatch(getOrderDetails(id));
     if(error) {
-      alert.error(error);
+      toast.error(error);
       dispatch(clearErrors());
     }
-  }, [dispatch, alert, error, id]);
+  }, [dispatch, error, id]);
 
   const deliveryDetails = deliveryInfo && `${deliveryInfo.address}, ${deliveryInfo.city}, ${deliveryInfo.postalCode}, ${deliveryInfo.country}`;
   const isPaid = paymentInfo && paymentInfo.status === "paid" ? true : false;
