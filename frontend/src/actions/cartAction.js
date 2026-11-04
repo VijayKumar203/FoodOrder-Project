@@ -1,7 +1,8 @@
-import axios from "axios"
+import axios from "axios";
+import { toast } from "react-toastify";
 import { ADD_TO_CART, FETCH_CART, REMOVE_ITEM_CART, UPDATE_CART_ITEM } from "../constants/cartConstant";
 
-export const fetchCartItems = (alert) => async(dispatch) => {
+export const fetchCartItems = () => async(dispatch) => {
     try {
         const response = await axios.get("/api/v1/eats/cart/get-cart");
         dispatch({
@@ -10,15 +11,14 @@ export const fetchCartItems = (alert) => async(dispatch) => {
         });
     } catch(error) {
         console.error("Fetch cart error:", error);
-        if(alert) {
-            alert.info("Cart is hungry");
-        }
+        
+        toast.info("Cart is hungry");
     }
 };
 
 //  Add to Cart
 
-export const addItemToCart = (foodItemId, restaurant, quantity, alert) => async(dispatch, getState) => {
+export const addItemToCart = (foodItemId, restaurant, quantity) => async(dispatch, getState) => {
     try {
         const {user} = getState().auth;
         const response = await axios.post("/api/v1/eats/cart/add-to-cart", {
@@ -27,19 +27,23 @@ export const addItemToCart = (foodItemId, restaurant, quantity, alert) => async(
             restaurantId: restaurant,
             quantity,
         });
-        alert.success("Item added to cart", response.data.cart);
+        toast.success("Item added to cart", response.data.cart);
         dispatch({
             type: ADD_TO_CART,
             payload: response.data.cart,
         })
     } catch(error) {
-        alert.error(error.response ? error.response.data.message : error.message);
+        toast.error(
+            error?.response?.data?.message ||
+            error?.message ||
+            "Something went wrong"
+        );
     }
 };
 
 // Update cart Item quantity
 
-export const updateCartQuantity = (foodItemId, quantity, alert) => async(dispatch, getState) => {
+export const updateCartQuantity = (foodItemId, quantity) => async(dispatch, getState) => {
     try {
         const {user} = getState().auth;
 
@@ -56,14 +60,18 @@ export const updateCartQuantity = (foodItemId, quantity, alert) => async(dispatc
             payload: response.data.cart,
         });
     } catch(error) {
-        alert.error(error.response ? error.response.data.message : error.message);
+      toast.error(
+        error?.response?.data?.message ||
+        error?.message ||
+        "Something went wrong"
+      );
     }
 };
 
 //  Remove Item from Cart
 
 export const removeItemFromCart = 
-    (foodItemId, alert) => async(dispatch, getState) => {
+    (foodItemId) => async(dispatch, getState) => {
         try {
             const {user} = getState().auth;
             if(typeof foodItemId === "object") {
@@ -78,7 +86,11 @@ export const removeItemFromCart =
                     type: REMOVE_ITEM_CART,
                     payload: response.data,
                 });
-        } catch(error) {
-            alert.error(error.response ? error.response.data.message : error.message);
-        }
-    };
+    } catch(error) {
+      toast.error(
+        error?.response?.data?.message ||
+        error?.message ||
+        "Something went wrong"
+      );
+    }
+};

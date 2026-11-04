@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import Loader from "../layouts/Loader";
-import { useAlert } from "react-alert";
+// import { useAlert } from "react-alert";
+import { toast } from "react-toastify";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import { clearErrors, login } from "../../actions/userAction";
@@ -9,7 +10,7 @@ const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  const alert = useAlert();
+  // const alert = useAlert();
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -24,10 +25,10 @@ const Login = () => {
       navigate("/");
     }
     if (error) {
-      alert.error(error);
+      toast.error(error);
       dispatch(clearErrors());
     }
-  }, [dispatch, alert, isAuthenticated, error, navigate]);
+  }, [dispatch, isAuthenticated, error, navigate]);
 
   const submitHandler = (e) => {
     e.preventDefault();

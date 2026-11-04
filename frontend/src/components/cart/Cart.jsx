@@ -1,5 +1,6 @@
 import React, { useEffect } from "react";
-import { useAlert } from "react-alert";
+// import { useAlert } from "react-alert";
+import { toast } from "react-toastify";
 import { LiaRupeeSignSolid } from "react-icons/lia";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchCartItems, removeItemFromCart, updateCartQuantity } from "../../actions/cartAction";
@@ -42,30 +43,30 @@ import { payment } from "../../actions/orderAction";
 
 const Cart = () => {
   const dispatch = useDispatch();
-  const alert = useAlert();
+  // const alert = useAlert();
   const { cartItems, restaurant } = useSelector((state) => state.cart);
   useEffect(() => {
-    dispatch(fetchCartItems(alert));
-  }, [dispatch, alert]);
+    dispatch(fetchCartItems());
+  }, [dispatch]);
 
   const removeCartItemHandler = (id) => {
-    dispatch(removeItemFromCart(id, alert));
+    dispatch(removeItemFromCart(id));
   };
 
   const increaseQty = (id, quantity, stock) => {
     const newQty = quantity + 1;
     if(newQty > stock) {
-      alert.error("Exceeded stock Limit");
+      toast.error("Exceeded stock Limit");
     }
-    dispatch(updateCartQuantity(id, newQty, alert));
+    dispatch(updateCartQuantity(id, newQty));
   };
 
   const decreaseQty = (id, quantity) => {
     if(quantity > 1) {
       const newQty = quantity - 1;
-      dispatch(updateCartQuantity(id, newQty, alert));
+      dispatch(updateCartQuantity(id, newQty));
     } else {
-      alert.error("Minimum Quantity Reached");
+      toast.error("Minimum Quantity Reached");
     }
   };
 
