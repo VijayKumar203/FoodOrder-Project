@@ -1,5 +1,6 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
+import axios from "axios";
 import App from "./App";
 import {Provider} from "react-redux"; 
 import { ToastContainer } from "react-toastify";
@@ -8,6 +9,13 @@ import "react-toastify/dist/ReactToastify.css";
 // import AlertTemplate from "react-alert-template-basic";
 import store from "./store";
 // require('dotenv').config();
+
+// Axios configuration
+axios.defaults.baseURL =
+  process.env.REACT_APP_API_URL ||
+  "https://food-order-backend-yg6r.onrender.com";
+
+axios.defaults.withCredentials = true;
 
 // const options = {
 //   position: positions.BOTTOM_CENTER,
