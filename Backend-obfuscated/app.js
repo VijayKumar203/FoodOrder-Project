@@ -99,7 +99,11 @@ const express = require(_0x35f0b4(0x103)),
   fileUpload = require(_0x35f0b4(0x124)),
   cors = require(_0x35f0b4(0xfa)),
   errorMiddleware = require("./middlewares/errors");
-app[_0x35f0b4(0x128)](cors()),
+app[_0x35f0b4(0x128)](cors({
+        origin: "https://food-order-website-gmc8.onrender.com",
+        credentials: true,
+    })
+  ),
   app["use"](express[_0x35f0b4(0x10c)]()),
   app[_0x35f0b4(0x128)](bodyParser[_0x35f0b4(0x104)]({ extended: !![] })),
   app[_0x35f0b4(0x128)](cookieParser()),
@@ -141,6 +145,13 @@ app["use"](express[_0x35f0b4(0x10c)]({ limit: _0x35f0b4(0x11f) })),
     _0x35f0b4(0x10a),
     path[_0x35f0b4(0x110)](__dirname, _0x35f0b4(0x10a))
   ),
+  // Backend health check route
+app.get("/", (req, res) => {
+  res.status(200).json({
+    status: "success",
+    message: "FoodOrder Backend API is running successfully!",
+  });
+});
   app[_0x35f0b4(0x108)]("*", (_0x2950f1, _0x498051, _0xdd2894) => {
     const _0x1e01c3 = _0x35f0b4;
     _0x498051["status"](0x194)[_0x1e01c3(0x10c)]({
