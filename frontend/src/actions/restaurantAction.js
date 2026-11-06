@@ -17,7 +17,11 @@ export const getRestaurants = () => {
     catch(err) {
         dispatch({
             type: ALL_RESTAURANTS_FAIL,
-            payload: err.response.data.message,
+            payload:
+          err.response?.data?.message ||
+          err.response?.data?.errMessage ||
+          err.message ||
+          "Unable to load restaurants",
         });
     }
     };
