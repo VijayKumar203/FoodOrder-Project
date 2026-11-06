@@ -31,7 +31,11 @@ export const createOrder = (session_id) => async(dispatch) => {
         });
     } catch (error) {
         dispatch({type: CREATE_ORDER_FAIL,
-            payload: error.response.data.message,
+                payload:
+      error.response?.data?.message ||
+      error.response?.data?.errMessage ||
+      error.message ||
+      "Something went wrong",
         });
     }
 };
@@ -55,7 +59,11 @@ export const payment = (items, restaurant) => async(dispatch) => {
         }
     } catch(error) {
         dispatch({ type: CREATE_PAYMENT_FAIL,
-        payload: error.response.data.message,
+            payload:
+      error.response?.data?.message ||
+      error.response?.data?.errMessage ||
+      error.message ||
+      "Something went wrong",
     });
     }
 };
@@ -75,7 +83,11 @@ export const myOrders = () => async(dispatch) => {
     } catch(error) {
         dispatch({
             type: MY_ORDER_FAIL,
-            payload: error.response.data.message,
+            payload:
+      error.response?.data?.message ||
+      error.response?.data?.errMessage ||
+      error.message ||
+      "Something went wrong",
         });
     }
 };
@@ -91,7 +103,11 @@ export const getOrderDetails = (id) => async(dispatch) => {
     } catch (error) {
         dispatch({
             type: ORDER_DETAILS_FAIL,
-            payload: error.response.data.message,
+            payload:
+      error.response?.data?.message ||
+      error.response?.data?.errMessage ||
+      error.message ||
+      "Something went wrong",
         });
     }
 };

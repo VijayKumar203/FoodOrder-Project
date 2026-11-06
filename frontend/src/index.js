@@ -11,9 +11,7 @@ import store from "./store";
 // require('dotenv').config();
 
 // Axios configuration
-axios.defaults.baseURL =
-  process.env.REACT_APP_API_URL ||
-  "https://food-order-backend-yg6r.onrender.com";
+axios.defaults.baseURL = process.env.REACT_APP_API_URL || "";
 
 axios.defaults.withCredentials = true;
 
