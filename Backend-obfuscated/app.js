@@ -99,11 +99,22 @@ const express = require(_0x35f0b4(0x103)),
   fileUpload = require(_0x35f0b4(0x124)),
   cors = require(_0x35f0b4(0xfa)),
   errorMiddleware = require("./middlewares/errors");
+// CORS configuration
 app[_0x35f0b4(0x128)](cors({
         origin: "https://food-order-website-gmc8.onrender.com",
         credentials: true,
+        methods: ["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"],
+        allowedHeaders: ["Content-Type", "Authorization"]
     })
   ),
+  // Handle preflight requests
+  app.options("*", cors({
+    origin: "https://food-order-website-gmc8.onrender.com",
+    credentials: true,
+    methods: ["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"],
+    allowedHeaders: ["Content-Type", "Authorization"]
+}));
+// Other middleware
   app["use"](express[_0x35f0b4(0x10c)]()),
   app[_0x35f0b4(0x128)](bodyParser[_0x35f0b4(0x104)]({ extended: !![] })),
   app[_0x35f0b4(0x128)](cookieParser()),
