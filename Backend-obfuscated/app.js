@@ -107,7 +107,7 @@ app[_0x35f0b4(0x128)](cors({
         allowedHeaders: ["Content-Type", "Authorization"]
     })
   ),
-  // Handle preflight requests 
+  // Handle preflight requests
   app.options("*", cors({
     origin: process.env.FRONTEND_URL,
     credentials: true,
