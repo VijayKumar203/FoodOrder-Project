@@ -101,7 +101,7 @@ const express = require(_0x35f0b4(0x103)),
   errorMiddleware = require("./middlewares/errors");
 // CORS configuration
 app[_0x35f0b4(0x128)](cors({
-        origin: "FRONTEND_URL",
+        origin: process.env.FRONTEND_URL,
         credentials: true,
         methods: ["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"],
         allowedHeaders: ["Content-Type", "Authorization"]
@@ -109,7 +109,7 @@ app[_0x35f0b4(0x128)](cors({
   ),
   // Handle preflight requests
   app.options("*", cors({
-    origin: "FRONTEND_URL",
+    origin: process.env.FRONTEND_URL,
     credentials: true,
     methods: ["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"],
     allowedHeaders: ["Content-Type", "Authorization"]
